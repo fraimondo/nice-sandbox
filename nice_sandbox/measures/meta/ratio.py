@@ -180,7 +180,6 @@ class Ratio(BaseMeasureSandbox):
             fname, save_vars, overwrite=overwrite,
             title=self._get_title(), slash='replace')
 
-
     @classmethod
     def _read(cls, fname, measures=None, comment='default'):
         return _read_ratio(cls, fname=fname, measures=measures, comment=comment)
