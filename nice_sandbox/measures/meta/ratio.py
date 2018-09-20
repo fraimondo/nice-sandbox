@@ -26,12 +26,13 @@ import h5py
 from mne.utils import logger
 from mne.externals.h5io import write_hdf5
 
-from nice.measures.base import BaseMeasure, _read_container
+from ...measures.base import BaseMeasureSandbox, _read_container
 
 
-class Ratio(BaseMeasure):
+class Ratio(BaseMeasureSandbox):
     def __init__(self, numerator=None, denominator=None, comment='defalt'):
-        BaseMeasure.__init__(self, tmin=None, tmax=None, comment=comment)
+        BaseMeasureSandbox.__init__(
+            self, tmin=None, tmax=None, comment=comment)
         self.numerator = numerator
         self.denominator = denominator
         self._check()
@@ -178,6 +179,7 @@ class Ratio(BaseMeasure):
         write_hdf5(
             fname, save_vars, overwrite=overwrite,
             title=self._get_title(), slash='replace')
+
 
     @classmethod
     def _read(cls, fname, measures=None, comment='default'):
