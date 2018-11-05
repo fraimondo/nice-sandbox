@@ -8,11 +8,11 @@ import functools
 import mne
 
 from nice.utils import create_mock_data_egi
-from nice.measures.tests.test_measures import _base_io_test
-from nice.measures.spectral import (PowerSpectralDensity,
+from nice.markers.tests.test_markers import _base_io_test
+from nice.markers.spectral import (PowerSpectralDensity,
                                     PowerSpectralDensityEstimator)
 
-from nice_sandbox.measures.meta import Ratio, read_ratio
+from nice_sandbox.markers.meta import Ratio, read_ratio
 
 n_epochs = 30
 raw = create_mock_data_egi(6, n_epochs * 386, stim=True)
@@ -36,7 +36,7 @@ picks = mne.pick_types(epochs.info, meg=False, eeg=True, eog=False,
 
 
 def test_ratio():
-    """Test computation of Ratio measures"""
+    """Test computation of Ratio markers"""
     psds_params = dict(n_fft=4096, n_overlap=100, n_jobs='auto',
                        nperseg=128)
     estimator = PowerSpectralDensityEstimator(
@@ -45,7 +45,7 @@ def test_ratio():
     )
     psd1 = PowerSpectralDensity(estimator, fmin=1., fmax=4., comment='delta')
     psd2 = PowerSpectralDensity(estimator, fmin=4., fmax=8., comment='theta')
-    measures = {
+    markers = {
         psd1._get_title(): psd1,
         psd2._get_title(): psd2
     }
@@ -53,7 +53,7 @@ def test_ratio():
                   comment='delta_theta')
 
     _base_io_test(ratio, epochs,
-                  functools.partial(read_ratio, measures=measures,
+                  functools.partial(read_ratio, markers=markers,
                                     comment='delta_theta'))
 
     data1 = psd1.data_

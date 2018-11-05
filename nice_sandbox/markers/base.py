@@ -1,18 +1,18 @@
 from mne.externals.h5io import read_hdf5
 from mne.io.meas_info import Info
 
-from nice.measures.base import BaseMeasure
+from nice.markers.base import BaseMarker
 
 
-class BaseMeasureSandbox(BaseMeasure):
+class BaseMarkerSandbox(BaseMarker):
 
     def _get_title(self):
         return _get_title(self.__class__, self.comment)
 
 
 def _get_title(klass, comment):
-    if issubclass(klass, BaseMeasure):
-        kind = 'measure'
+    if issubclass(klass, BaseMarker):
+        kind = 'marker'
     else:
         raise NotImplementedError('Oh no-- what is this?')
     return '/'.join([

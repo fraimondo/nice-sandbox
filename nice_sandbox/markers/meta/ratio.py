@@ -26,12 +26,12 @@ import h5py
 from mne.utils import logger
 from mne.externals.h5io import write_hdf5
 
-from ...measures.base import BaseMeasureSandbox, _read_container
+from ...markers.base import BaseMarkerSandbox, _read_container
 
 
-class Ratio(BaseMeasureSandbox):
+class Ratio(BaseMarkerSandbox):
     def __init__(self, numerator=None, denominator=None, comment='defalt'):
-        BaseMeasureSandbox.__init__(
+        BaseMarkerSandbox.__init__(
             self, tmin=None, tmax=None, comment=comment)
         self.numerator = numerator
         self.denominator = denominator
@@ -47,7 +47,7 @@ class Ratio(BaseMeasureSandbox):
             for (k1, v1), (k2, v2) in zip(self.numerator._axis_map.items(),
                                           self.denominator._axis_map.items()):
                 if k1 != k2 or v1 != v2:
-                    raise ValueError('Numerator and Denominator measures must '
+                    raise ValueError('Numerator and Denominator markers must '
                                      'have the same shape.')
 
     def _fit(self, epochs):
@@ -113,7 +113,7 @@ class Ratio(BaseMeasureSandbox):
             if t_ax in ['epochs', 'channels'] and found is False:
                 found = True
             if found is True and t_ax not in ['epochs', 'channels']:
-                raise ValueError('Cannot reduce Ratio measure with this axis '
+                raise ValueError('Cannot reduce Ratio marker with this axis '
                                  'order. Channels and Epochs should be the '
                                  'two last axis to reduce (in any order).')
         data_numerator = np.transpose(data_numerator, permutation_list)
@@ -181,25 +181,25 @@ class Ratio(BaseMeasureSandbox):
             title=self._get_title(), slash='replace')
 
     @classmethod
-    def _read(cls, fname, measures=None, comment='default'):
-        return _read_ratio(cls, fname=fname, measures=measures, comment=comment)
+    def _read(cls, fname, markers=None, comment='default'):
+        return _read_ratio(cls, fname=fname, markers=markers, comment=comment)
 
 
-def _read_ratio(cls, fname, measures=None, comment='default'):
+def _read_ratio(cls, fname, markers=None, comment='default'):
     out = _read_container(cls, fname, comment=comment)
-    if measures is None:
+    if markers is None:
         # Get class of each estimator and read
         raise NotImplementedError(
             'This feature is not yet implemented. Please read all the '
-            'measures first')
+            'markers first')
 
-    out.numerator = measures[out.numerator_name_]
-    out.denominator = measures[out.denominator_name_]
+    out.numerator = markers[out.numerator_name_]
+    out.denominator = markers[out.denominator_name_]
     del out.numerator_name_
     del out.denominator_name_
     return out
 
 
-def read_ratio(fname, measures=None, comment='default'):
-    out = Ratio._read(fname, measures=measures, comment=comment)
+def read_ratio(fname, markers=None, comment='default'):
+    out = Ratio._read(fname, markers=markers, comment=comment)
     return out
