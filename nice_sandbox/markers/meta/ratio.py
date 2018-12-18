@@ -1,4 +1,4 @@
-# NICE
+# NICE-Sandbox
 # Copyright (C) 2017 - Authors of NICE-sandbox
 #
 # This program is free software: you can redistribute it and/or modify

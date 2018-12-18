@@ -20,3 +20,6 @@
 # License version 3 without disclosing the source code of your own applications.
 #
 from . ratio import Ratio, read_ratio
+from nice.collection import register_marker_class
+
+register_marker_class(Ratio)

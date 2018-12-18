@@ -19,5 +19,9 @@
 # develop commercial activities as mentioned in the GNU Affero General Public
 # License version 3 without disclosing the source code of your own applications.
 #
-from . import meta
-from . import connectivity
+from . wpli import WeightedPhaseLagIndex, read_wpli
+from . plv import PhaseLockingValue, read_plv
+from nice.collection import register_marker_class
+
+register_marker_class(WeightedPhaseLagIndex)
+register_marker_class(PhaseLockingValue)
