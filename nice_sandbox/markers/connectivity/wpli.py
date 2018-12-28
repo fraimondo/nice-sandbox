@@ -70,6 +70,7 @@ class WeightedPhaseLagIndex(BaseMarkerSandbox):
                 fmax=self.fmax, tmin=self.tmin, tmax=self.tmax, faverage=True,
                 n_jobs=self.n_jobs)
         self.data_ = np.squeeze(data)
+        self.data_ += self.data_.T
         self.freqs_ = freqs[0]
         self.times_ = times
         self.n_epochs_ = n_epochs
