@@ -1,4 +1,4 @@
-# NICE
+# NICE-Sandbox
 # Copyright (C) 2017 - Authors of NICE-sandbox
 #
 # This program is free software: you can redistribute it and/or modify
@@ -17,7 +17,8 @@
 # You can be released from the requirements of the license by purchasing a
 # commercial license. Buying such a license is mandatory as soon as you
 # develop commercial activities as mentioned in the GNU Affero General Public
-# License version 3 without disclosing the source code of your own applications.
-#
+# License version 3 without disclosing the source code of your own
+# applications.
+
 from . import meta
 from . import connectivity

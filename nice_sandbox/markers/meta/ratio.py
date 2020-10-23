@@ -17,9 +17,10 @@
 # You can be released from the requirements of the license by purchasing a
 # commercial license. Buying such a license is mandatory as soon as you
 # develop commercial activities as mentioned in the GNU Affero General Public
-# License version 3 without disclosing the source code of your own applications.
-#
+# License version 3 without disclosing the source code of your own
+# applications.
 
+from pathlib import Path
 import numpy as np
 
 import h5py
@@ -30,7 +31,7 @@ from ...markers.base import BaseMarkerSandbox, _read_container
 
 
 class Ratio(BaseMarkerSandbox):
-    def __init__(self, numerator=None, denominator=None, comment='defalt'):
+    def __init__(self, numerator=None, denominator=None, comment='default'):
         BaseMarkerSandbox.__init__(
             self, tmin=None, tmax=None, comment=comment)
         self.numerator = numerator
@@ -65,8 +66,8 @@ class Ratio(BaseMarkerSandbox):
             self.numerator.fit(epochs)
         if not hasattr(self.denominator, 'data_'):
             logger.warning(
-                'Denominator not fit. If this is part of a feature collection, '
-                'it should be placed after the corresponding estimator.')
+                'Denominator not fit. If this is part of a feature collection,'
+                ' it should be placed after the corresponding estimator.')
             self.denominator.fit(epochs)
 
     @property
@@ -106,7 +107,7 @@ class Ratio(BaseMarkerSandbox):
             raise ValueError('Run `python -c "import this"` to see '
                              'why we will not tolerate these things')
         if len(axis_to_preserve) > 0:
-            permutation_list += removed_axis
+            permutation_list += removed_axis  # type: ignore
 
         found = False
         for t_ax in axis:
@@ -146,6 +147,8 @@ class Ratio(BaseMarkerSandbox):
         return out
 
     def save(self, fname, overwrite=False):
+        if not isinstance(fname, Path):
+            fname = Path(fname)
         self._save_info(fname, overwrite=overwrite)
         save_vars = self._get_save_vars(
             exclude=['data_', 'numerator', 'denominator', 'tmin', 'tmax'])

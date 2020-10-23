@@ -1,4 +1,4 @@
-# NICE-Sandbox
+# NICE
 # Copyright (C) 2017 - Authors of NICE-sandbox
 #
 # This program is free software: you can redistribute it and/or modify
@@ -17,16 +17,15 @@
 # You can be released from the requirements of the license by purchasing a
 # commercial license. Buying such a license is mandatory as soon as you
 # develop commercial activities as mentioned in the GNU Affero General Public
-# License version 3 without disclosing the source code of your own applications.
-#
+# License version 3 without disclosing the source code of your own
+# applications.
+
 
 import numpy as np
 from collections import OrderedDict
 
-import h5py
 import mne
 from mne.utils import logger
-from mne.externals.h5io import write_hdf5
 
 from ...markers.base import BaseMarkerSandbox, _read_container
 
@@ -50,7 +49,7 @@ class WeightedPhaseLagIndex(BaseMarkerSandbox):
                 n_jobs = int(mp.cpu_count() / mkl.get_max_threads())
                 logger.info(
                     'Autodetected number of jobs {}'.format(n_jobs))
-            except:
+            except Exception:
                 logger.info('Cannot autodetect number of jobs')
                 n_jobs = 1
         self.n_jobs = n_jobs
@@ -65,7 +64,7 @@ class WeightedPhaseLagIndex(BaseMarkerSandbox):
     def _fit(self, epochs):
         data, freqs, times, n_epochs, n_tappers = \
             mne.connectivity.spectral_connectivity(
-                epochs, method='wpli', indices=None, 
+                epochs, method='wpli', indices=None,
                 sfreq=epochs.info['sfreq'], mode='multitaper', fmin=self.fmin,
                 fmax=self.fmax, tmin=self.tmin, tmax=self.tmax, faverage=True,
                 n_jobs=self.n_jobs)

@@ -1,5 +1,5 @@
-# NICE
-# Copyright (C) 2017 - Authors of NICE
+# NICE-Sandbox
+# Copyright (C) 2017 - Authors of NICE-sandbox
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -17,35 +17,26 @@
 # You can be released from the requirements of the license by purchasing a
 # commercial license. Buying such a license is mandatory as soon as you
 # develop commercial activities as mentioned in the GNU Affero General Public
-# License version 3 without disclosing the source code of your own 
+# License version 3 without disclosing the source code of your own
 # applications.
-#
 
-import os.path as op
 
 from nose.tools import assert_equal, assert_true
 
-from numpy.testing import assert_array_equal
-import numpy as np
-import warnings
-import matplotlib
-
-import mne
 from mne.utils import _TempDir
 
 # our imports
 from nice.markers import PowerSpectralDensity
 from nice.markers import ContingentNegativeVariation
 from nice.markers import PermutationEntropy
-from nice.markers import TimeLockedTopography
-from nice.markers import TimeLockedContrast
 from nice.markers import PowerSpectralDensityEstimator
 
-from nice_sandbox.markers.connectivity import WeightedPhaseLagIndex, read_wpli
+from nice_sandbox.markers.connectivity import WeightedPhaseLagIndex
 
 from nice import Markers, read_markers
 
-from nice.tests.test_collection import _get_data, _compare_instance
+from nice.tests.test_collection import _get_data
+
 
 def test_collecting_feature():
     """Test computation of spectral markers"""
@@ -99,6 +90,7 @@ def test_collecting_feature():
     assert_true(pe._get_title() in markers3)
 
     assert_true(wpli._get_title() in markers3)
+
 
 if __name__ == "__main__":
     import nose
